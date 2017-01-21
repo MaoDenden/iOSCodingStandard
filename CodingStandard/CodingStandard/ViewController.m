@@ -6,27 +6,36 @@
 //  Copyright © 2017年 xiaoku. All rights reserved.
 //
 
+// 尖括号, 引号，
+
 #import "ViewController.h"
 // Controller
+
 #import "XKContactTCell.h"
 // Model
+
 #import "XKContactModel.h"
 // ViewModel
 
 // 工具类
 
+#define SH [UIScreen mainScreen].bounds.size.height
+
 static const CGFloat kRegisterButtonHeight = 44;         // 注册按钮高度
+
+
 static NSString *cellIdentifier = @"cellIdentifier";
 
 
-@interface ViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface ViewController ()<UITableViewDelegate, UITableViewDataSource, UINavigationBarDelegate, UICollectionViewDelegate>
 {
     int mAge;
-    NSString *name;
+    NSString *mName;
 }
+// 模块， 控件、数据。
 
 @property (nonatomic, strong) UIButton *nameButton;
-@property (nonatomic, strong) UITableView *mainTable;
+@property (nonatomic, strong) UITableView *mainTableView;
 
 @property (nonatomic, assign) int ageInt;
 @property (nonatomic, strong) NSString *nameString;
@@ -39,8 +48,15 @@ static NSString *cellIdentifier = @"cellIdentifier";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    [self initControllerView];
-    
+    [self setupUI];
+
+//    前缀 MA 前两个字母
+//    后缀 Controller Cell Model ViewModel Util View AlertView
+//    第三方集成写到UIApplicationDelegate分类中
+
+//    分类 前缀，方法名前缀
+
+//    全称
 //    UIImage
 //    UIColor
     
@@ -64,53 +80,61 @@ static NSString *cellIdentifier = @"cellIdentifier";
 //    UIScrollView
 }
 
+
+
+/**
+ 默认初始值
+ */
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - 界面初始化
+
 - (void)initControllerView
 {
     // 联系人列表
     [self.mainTable registerClass:[XKContactTCell class] forCellReuseIdentifier:cellIdentifier];
-    [self.view addSubview:_mainTable];
+    [self.view addSubview:_mainTableView];
 }
 
-- (UITableView *)mainTable
-{
-    if (!_mainTable) {
-        _mainTable = [[UITableView alloc] init];
-        _mainTable.delegate = self;
-        _mainTable.dataSource = self;
+- (UITableView *)mainTable {
+    if (!_mainTableView) {
+        _mainTableView = [[UITableView alloc] init];
+        _mainTableView.delegate = self;
+        _mainTableView.dataSource = self;
     }
-    return _mainTable;
+    return _mainTableView;
 }
 
-#pragma mark - 数据显示到界面
+#pragma mark - 初始化界面
+- (void)setupUI {
+    [self.view addSubview:self.nameButton];
+    [self.view addSubview:self.mainTableView];
+}
 
+- (void)defaultSet {
+    
+}
+#pragma mark - 事件方法
+#pragma mark - UITableViewDataSource
+#pragma mark - UITableViewDelegate
+#pragma mark - 懒加载
 
-#pragma mark - 点击事件
-
-
-
-#pragma mark - tableView
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 10;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     XKContactTCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
     return cell;
 }
-#pragma mark - 通知
 
-#pragma mark - 方法
-- (void)eat:(NSString *)water
-{
+
+
+- (void)eat:(NSString *)water {
     
 }
 @end

@@ -10,7 +10,6 @@
 #import "XKContactModel.h"
 
 @interface XKContactTCell ()
-@property (nonatomic, strong) XKContactModel *bind;
 @end
 
 @implementation XKContactTCell
@@ -26,11 +25,9 @@
     // Configure the view for the selected state
 }
 
-- (void)setBind:(XKContactModel *)bind controller:(UIViewController *)controller
+- (void)setBind:(XKContactModel *)bind
 {
-    self.bind = bind;
-    
-    // 把数据绑定到界面
+    _bind = bind;
 }
 
 @end

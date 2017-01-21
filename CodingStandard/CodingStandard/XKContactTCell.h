@@ -12,5 +12,5 @@
 
 @interface XKContactTCell : UITableViewCell
 //
-- (void)setBind:(XKContactModel *)bind controller:(UIViewController *)controller;
+@property (nonatomic, strong) XKContactModel *bind;
 @end
